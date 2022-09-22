@@ -10,8 +10,7 @@ gsheet = gc.open_by_url(INSERT_YOUR_GOOGLE_DOC_HERE)
  You have a ton of glaring issues in your code.
  You are literally leaking the google sheet - I can edit it if I wanted to. I can see everyone's names and grades.
  
- Also, you really need to refactor your code and use classes. This may work - but to edit something is incredibly fucking aids.
- I was actually going to re-write this whole thing for you, but I can't even begin to understand what type of input you have.
+ Also, you really need to refactor your code and use classes. Feel free to message on discord.
  Do not use google sheets as a way to serve up a grade - plenty of better ways...
 
 """
