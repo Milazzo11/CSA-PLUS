@@ -4,7 +4,18 @@ import os
 
 
 gc = gspread.service_account(filename="credentials.json")
-gsheet = gc.open_by_url("https://docs.google.com/spreadsheets/d/10Md0RhjnPVyUNR_grxa46mNGy_dZoMT_Dbd8nUdMrLk/edit?usp=sharing")
+gsheet = gc.open_by_url(INSERT_YOUR_GOOGLE_DOC_HERE)
+
+"""
+ You have a ton of glaring issues in your code.
+ You are literally leaking the google sheet - I can edit it if I wanted to. I can see everyone's names and grades.
+ 
+ Also, you really need to refactor your code and use classes. This may work - but to edit something is incredibly fucking aids.
+ I was actually going to re-write this whole thing for you, but I can't even begin to understand what type of input you have.
+ Do not use google sheets as a way to serve up a grade - plenty of better ways...
+
+"""
+
 wsheet = gsheet.get_worksheet(0)
 # gets google sheet and worksheet
 
