@@ -7,6 +7,13 @@ import zipfile
 RUN CONFIGURATION SETTINGS vvv
 """
 
+"""
+
+PUT THESE IN A CSA_CONSTANTS.PY
+
+"""
+
+
 RUN_DIR = ""
 # run directory
 # will almost always be "" (current directory)
