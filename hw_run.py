@@ -8,44 +8,67 @@ import zipfile
 RUN CONFIGURATION SETTINGS vvv
 """
 
+# !! = SETTING MAY LIKELY NEED TO BE ALTERED WHEN ASSIGNMENT CHANGES
+
+ASSIGNMENT_NAME = "homework11"
+# used by other public variables
+# !!
+
 RUN_DIR = ""
 # subdirectory in student submission file where run-file is located
 # will almost always be "" (submission directory)
 
-ALT_DIRS = ["homework10"]
+ALT_DIRS = [ASSIGNMENT_NAME]
 # alternative directives to check for code if not found in RUN_DIR
 
 CHECK_EXTENSION = ".py"
 # run extension
 
-RUN_DIRECT = False
+RUN_DIRECT = True
 # runs program directly by file name
+# !!
 
-RUN_WITH_TEST = True
+RUN_WITH_TEST = False
 # runs program implementing external test program
+# !!
 
-RUN_NAME = "droid_factory.py"
+RUN_NAME = "test_cbc.py"
 # program file to initiate execution with
+# !!
+
+RUN_NAME_SEARCH = "cbc_mode.py"
+# RUN_NAME_SEARCH = RUN_NAME
+# program file to search for to ensure correct run directory
+# will usually be the same as RUN_NAME
+# in cases where a copied library file is set in RUN_NAME this value may differ
+
+COMPLETION_MARKER = ASSIGNMENT_NAME
+# used if RUN_NAME and RUN_NAME_SEARCH are different
+# creates a ".complete" file with this name to signify completeness
 
 TEST_NAME = "run.py"
 # external test program file name (must be in main directory)
 
-FILE_NAMES = ["droid_factory.py"]
+FILE_NAMES = ["encryption.py", "cbc_mode.py"]
 # program file names
+# !!
 
 ZIP_NAME = "hw.zip"
 # homework main zip folder
 
 RUN_COMMENT_TITLES = []
 # comment titles following code execution
+# !!
 
-CODE_COMMENT_TITLES = [["Task 1: defining dataclasses (10%)", "Task 2: processing the file, creating and populating the data structure (10%)", "Task 3: building a droid using the conveyor belt (40%)", "Task 4: running the factory until the conveyor belt is empty (25%)", "Task 5: main function (15%)"]]
+CODE_COMMENT_TITLES = [["xor_gate produces correct results and raises exceptions (30%)"], ["cbc_mode_encryption correctly processes linked lists of arbitrary length and is documented (30%)", "cbc_mode_decryption correctly processes linked lists of arbitrary length and is documented (30%)", "cbc_mode.py module is complete and documented (10%)"]]
 # comment titles associated with code blocks in each file
 # index of nested array corresponds with associated file index in FILE_NAMES variable
 # EVEN IF FILE HAS NO COMMENTS, EMPTY LIST '[]' MUST BE PLACED HERE FOR EACH FILE
+# !!
 
-ADDITIONAL_COMMENTS = ["Style", "Documentation", "Total"]
+ADDITIONAL_COMMENTS = ["Style", "Documentation", "Submission", "Total"]
 # aditional comment titles
+# !!
 
 NOTEPAD_CMD = "notepad"
 # text editor command
@@ -100,19 +123,19 @@ def view(run_path, file=None):  # displays user files in terminal
         try:
             run = os.path.join(run_path, included)
 
-            if not os.path.isfile(run):
-                print(f'< FILE "{included}"" NOT FOUND - SKIPPING >')
-                return
+            if os.path.isfile(run):  # displays file if it is present
+                print("\n---------------------")
+                print("FILE: " + included)
+                print("DIR: " + run_path)
+                print("---------------------")
 
-            print("\n---------------------")
-            print("FILE: " + included)
-            print("DIR: " + run_path)
-            print("---------------------")
+                with open(run, "r", encoding='utf-8') as f:  # displays file text
+                    print(f.read())
 
-            with open(run, "r", encoding='utf-8') as f:  # displays file text
-                print(f.read())
-
-            print("\n---------------------")
+                print("\n---------------------")
+                
+            else:
+                print(f'< FILE "{included}" NOT FOUND - SKIPPING >')
             
             if file is not None:
             
@@ -124,7 +147,11 @@ def view(run_path, file=None):  # displays user files in terminal
                 data = ""
 
                 if len(FILE_NAMES) > 1 and len(CODE_COMMENT_TITLES[cct_iter]) > 0:  # formats comments for single and multi-file projects
-                    data = "\n< " + included + " >\n"
+                    if len(RUN_COMMENT_TITLES) > 0 or cct_iter > 0:
+                        data = "\n"
+                        # ensures newline isn't added at start of comment file
+                        
+                    data += "< " + included + " >\n"
                 
                 for index in range(len(CODE_COMMENT_TITLES[cct_iter])):  # adds grader comments to string
                     data += CODE_COMMENT_TITLES[cct_iter][index] + ": " + comment_arr[index] + "\n"
@@ -133,7 +160,10 @@ def view(run_path, file=None):  # displays user files in terminal
                     f.write(data)
                     
                 try:
-                    os.rename(run, os.path.join(run_path, RUN_NAME + ".complete"))
+                    if RUN_NAME == RUN_NAME_SEARCH:  # creates completion marker file
+                        os.rename(run, os.path.join(run_path, RUN_NAME + ".complete"))
+                    else:
+                        open(os.path.join(run_path, COMPLETION_MARKER + ".complete"), "w").close()
                 except:
                     pass
 
@@ -152,11 +182,11 @@ def run_handle(path):  # handles program run
 
     run_path = os.path.join(path, RUN_DIR)
 
-    if not os.path.isfile(os.path.join(run_path, RUN_NAME)):  # uses alternate run directories if needed
+    if not os.path.isfile(os.path.join(run_path, RUN_NAME_SEARCH)):  # uses alternate run directories if needed
         for alt in ALT_DIRS:
-            if os.path.isfile(os.path.join(os.path.join(path, alt), RUN_NAME)):
+            if os.path.isfile(os.path.join(os.path.join(path, alt), RUN_NAME_SEARCH)):
                 run_path = os.path.join(path, alt)
-                break                
+                break
     
     copyfiles = os.listdir("copylib")
     
