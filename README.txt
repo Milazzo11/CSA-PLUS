@@ -8,10 +8,10 @@ Will also create text files for comments with each student's name using the inco
 
 Use inc_rezip.py to rezip all folders in the "incomplete" folder.  
 This makes it really easy to unzip (using incomplete.py), correct the student's who submitted incorrectly, 
-then rezip using inc_rezip.py, and then copy the zipped files back to the "hw" directory to continue using hw_run.py for the remaining assignments.
+then rezip using inc_rezip.py, and then copy the zipped files back to the "hw" folder to continue using hw_run.py for the remaining assignments.
+
+Use formatter.py to reformat comment data (will copy formatted comments to "fcomms" folder).
 
 Use data_compile.py to import data into google sheets using API.
 
 Optionally put files/directories to be copied into student submission folders in the "copylib" folder.
-
-"run.py" test module included to demonstrate writing a CSA+ run module.

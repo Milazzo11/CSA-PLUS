@@ -10,7 +10,7 @@ RUN CONFIGURATION SETTINGS vvv
 
 # !! = SETTING MAY LIKELY NEED TO BE ALTERED WHEN ASSIGNMENT CHANGES
 
-ASSIGNMENT_NAME = "homework11"
+ASSIGNMENT_NAME = "homework12"
 # used by other public variables
 # !!
 
@@ -32,11 +32,11 @@ RUN_WITH_TEST = False
 # runs program implementing external test program
 # !!
 
-RUN_NAME = "test_cbc.py"
+RUN_NAME = "number_map.py"
 # program file to initiate execution with
 # !!
 
-RUN_NAME_SEARCH = "cbc_mode.py"
+RUN_NAME_SEARCH = "treemap.py"
 # RUN_NAME_SEARCH = RUN_NAME
 # program file to search for to ensure correct run directory
 # will usually be the same as RUN_NAME
@@ -49,7 +49,7 @@ COMPLETION_MARKER = ASSIGNMENT_NAME
 TEST_NAME = "run.py"
 # external test program file name (must be in main directory)
 
-FILE_NAMES = ["encryption.py", "cbc_mode.py"]
+FILE_NAMES = ["treemap.py"]
 # program file names
 # !!
 
@@ -60,13 +60,13 @@ RUN_COMMENT_TITLES = []
 # comment titles following code execution
 # !!
 
-CODE_COMMENT_TITLES = [["xor_gate produces correct results and raises exceptions (30%)"], ["cbc_mode_encryption correctly processes linked lists of arbitrary length and is documented (30%)", "cbc_mode_decryption correctly processes linked lists of arbitrary length and is documented (30%)", "cbc_mode.py module is complete and documented (10%)"]]
+CODE_COMMENT_TITLES = [["TreeMap (10%)", "map_insert (35%)", "map_to_str (15%)", "map_search (15%)", "main and tests (15%)"]]
 # comment titles associated with code blocks in each file
 # index of nested array corresponds with associated file index in FILE_NAMES variable
 # EVEN IF FILE HAS NO COMMENTS, EMPTY LIST '[]' MUST BE PLACED HERE FOR EACH FILE
 # !!
 
-ADDITIONAL_COMMENTS = ["Style", "Documentation", "Submission", "Total"]
+ADDITIONAL_COMMENTS = ["Style (5%)", "Documentation (5%)", "Submission", "Total"]
 # aditional comment titles
 # !!
 
@@ -362,7 +362,7 @@ def main():
             
             print(a)
             print(exc_type, fname, exc_tb.tb_lineno)
-            print("< ERROR - SKIPPING >")
+            print("< ERROR - SKIPPING >\n")
 
 
 if __name__ == "__main__":

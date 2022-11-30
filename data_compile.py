@@ -3,9 +3,11 @@ import time
 import os
 
 
+w = input("INPUT WORKSHEET NUMBER > ")
+
 gc = gspread.service_account(filename="credentials.json")
 gsheet = gc.open_by_url("https://docs.google.com/spreadsheets/d/10Md0RhjnPVyUNR_grxa46mNGy_dZoMT_Dbd8nUdMrLk/edit?usp=sharing")
-wsheet = gsheet.get_worksheet(11)
+wsheet = gsheet.get_worksheet(int(w))
 # gets google sheet and worksheet
 
 wsheet.update("A1", "Names")
@@ -14,7 +16,14 @@ wsheet.update("B1", "Scoring")
 
 data = []
 
-for file in os.listdir("comments"):  # iterates through comment files
+m = input('ENTER DATA COPY MODE (raw: "R" or formatted "F") > ')
+
+dirname = "comments"
+
+if m.upper() == "F":
+    dirname = "fcomms"
+
+for file in os.listdir(dirname):  # iterates through comment files
     file_data = file.split(",")
 
     name = file_data[0].split("-")[-1].strip() + ", " + file_data[1].split()[0]
@@ -23,7 +32,7 @@ for file in os.listdir("comments"):  # iterates through comment files
     if name[-4:] == ".txt":
         name = name[:-4]
 
-    with open(os.path.join("comments", file), "r") as f:  # adds student comments/scoring to list
+    with open(os.path.join(dirname, file), "r") as f:  # adds student comments/scoring to list
         data.append((name, f.read()))
 
 data.sort()
