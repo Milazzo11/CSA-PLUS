@@ -31,8 +31,10 @@ def scores_part_rubric(line):  # formats lines to partially remove rubric
     data = dat_split(line)
     
     try:
-        if (data[-1][0] == "-" and data[-1][1] != "0") or (data[-1][0] == "*"):
+        if data[-1][0] == "-" and data[-1][1] != "0":
             return data[-1] + "; " + data[0] + "\n"
+        elif data[-1][0] == "*":
+            return data[-1][1:] + "; " + data[0] + "\n"
         elif data[0][:5].upper() == "TOTAL":
             return "SCORE:" + line[6:]
     except:
