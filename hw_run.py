@@ -287,6 +287,11 @@ def main():
         os.mkdir("copylib")
     except:
         pass
+        
+    try:  # creates fcomms folder if needed
+        os.mkdir("fcomms")
+    except:
+        pass
     
     files = os.listdir("hw")
 
